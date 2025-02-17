@@ -468,7 +468,17 @@ class ObjectStringArrayMixin(BaseStringArrayMethods):
         return self._str_map(str.islower, dtype="bool")
 
     def _str_isnumeric(self):
-        return self._str_map(str.isnumeric, dtype="bool")
+        def is_numeric(value):
+            if value.isnumeric():
+                return True
+            else:
+                try:
+                    float(value)  # Try converting to float (supports negative and decimals)
+                    return True
+                except ValueError:
+                    return False
+
+        return self._str_map(is_numeric, dtype="bool")
 
     def _str_isspace(self):
         return self._str_map(str.isspace, dtype="bool")
