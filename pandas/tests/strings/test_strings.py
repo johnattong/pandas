@@ -240,8 +240,8 @@ def test_ismethods(method, expected, any_string_dtype):
 @pytest.mark.parametrize(
     "method, expected",
     [
-        ("isnumeric", [False, True, True, False, True, True, False]),
-        ("isdecimal", [False, True, False, False, False, True, False]),
+        ("isnumeric", [False, True, True, False, True, True, False, True, True]),
+        ("isdecimal", [False, True, False, False, False, True, False, True, True]),
     ],
 )
 def test_isnumeric_unicode(method, expected, any_string_dtype):
@@ -250,7 +250,7 @@ def test_isnumeric_unicode(method, expected, any_string_dtype):
     # 0x1378: ፸ ETHIOPIC NUMBER SEVENTY
     # 0xFF13: ３ Em 3  # noqa: RUF003
     ser = Series(
-        ["A", "3", "¼", "★", "፸", "３", "four"],  # noqa: RUF001
+        ["A", "3", "¼", "★", "፸", "３", "four", "1.2", "0.0"],  # noqa: RUF001
         dtype=any_string_dtype,
     )
     expected_dtype = (

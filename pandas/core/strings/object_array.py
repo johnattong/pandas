@@ -469,11 +469,15 @@ class ObjectStringArrayMixin(BaseStringArrayMethods):
 
     def _str_isnumeric(self):
         def is_numeric(value):
-            try:
-                float(value)  # Try converting to float (supports negative and decimals)
+            if value.isnumeric():
                 return True
-            except ValueError:
-                return False
+            else:
+                try:
+                    float(value)  # Try converting to float (supports negative and decimals)
+                    return True
+                except ValueError:
+                    return False
+
         return self._str_map(is_numeric, dtype="bool")
 
     def _str_isspace(self):
